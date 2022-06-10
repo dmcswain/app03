@@ -1,0 +1,26 @@
+function rootReducer(state: I.RootState, action: I.RootAction): I.RootState {
+   const { type, payload } = action;
+
+   function newState(updatedState: Partial<I.RootState>): I.RootState {
+      return { ...state, ...updatedState };
+   }
+
+   switch (type) {
+      case 'login': {
+         return newState({
+            currentUser: payload as I.User,
+         });
+      }
+
+      case 'logout': {
+         return newState({
+            currentUser: null,
+         });
+      }
+
+      default:
+         throw new Error('Unexpected action ' + String(type));
+   }
+}
+
+export default rootReducer;

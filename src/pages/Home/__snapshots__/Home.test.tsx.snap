@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home should render 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-ovbz0g"
+  >
+    <h2
+      class="MuiTypography-root MuiTypography-h2 MuiTypography-alignCenter css-icizyq-MuiTypography-root"
+    >
+      Home
+    </h2>
+  </div>
+</DocumentFragment>
+`;

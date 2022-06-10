@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders app 1`] = `
+<DocumentFragment>
+  <header
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+  >
+    <div
+      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-9c3o97-MuiToolbar-root"
+    >
+      <a
+        href="/"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+        >
+          <img
+            alt="logo"
+            class="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="logo192.png"
+          />
+        </div>
+      </a>
+      <div
+        class="user"
+      >
+        <a
+          class="MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit MuiButtonBase-root  css-sbfmij-MuiButtonBase-root-MuiButton-root"
+          href="/login"
+          tabindex="0"
+        >
+          Login
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </a>
+      </div>
+    </div>
+  </header>
+  <main
+    class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+  >
+    <div
+      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-hyum1k-MuiToolbar-root"
+    />
+    <div
+      class="MuiBox-root css-ovbz0g"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h2 MuiTypography-alignCenter css-icizyq-MuiTypography-root"
+      >
+        Home
+      </h2>
+    </div>
+  </main>
+  ;
+</DocumentFragment>
+`;
