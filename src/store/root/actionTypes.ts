@@ -1,7 +1,10 @@
-type ActionTypes = 'login' | 'logout';
+type Login = {
+   type: 'login';
+   payload: I.User;
+};
 
-export interface IRootAction {
-   type: ActionTypes;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   payload?: { [x: string]: any };
-}
+type Logout = {
+   type: 'logout';
+};
+
+export type IRootAction = Login | Logout;

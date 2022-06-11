@@ -1,5 +1,5 @@
 function rootReducer(state: I.RootState, action: I.RootAction): I.RootState {
-   const { type, payload } = action;
+   const { type } = action;
 
    function newState(updatedState: Partial<I.RootState>): I.RootState {
       return { ...state, ...updatedState };
@@ -8,7 +8,7 @@ function rootReducer(state: I.RootState, action: I.RootAction): I.RootState {
    switch (type) {
       case 'login': {
          return newState({
-            currentUser: payload as I.User,
+            currentUser: action.payload,
          });
       }
 

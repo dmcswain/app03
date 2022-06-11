@@ -3,8 +3,8 @@ import localStorageDb from 'localstoragedb';
 
 const db = new localStorageDb('mmApp', localStorage);
 
-export function getUsers() {
-   if (db.isNew()) return;
+export function getUsers(): I.User[] | null {
+   if (db.isNew()) return null;
 
    // db.isNew() only checks whether it's a new database, not whether it's empty
    // more info below
@@ -15,7 +15,7 @@ export function getUsers() {
    }
 }
 
-export function getUserByUsername(username: I.User['username']) {
+export function getUserByUsername(username: I.User['username']): I.User[] {
    return db.queryAll('users', {
       query: { username },
    });
@@ -28,13 +28,6 @@ export function addUser(user: I.User) {
       last_login_date: new Date(),
    };
 
-   if (db.isNew()) {
-      db.createTable('users', ['username', 'full_name', 'last_login_date']);
-      db.insert('users', doc);
-
-      return db.commit();
-   }
-
    function update() {
       db.insertOrUpdate('users', { username: user.username }, doc);
       db.commit();
@@ -45,7 +38,7 @@ export function addUser(user: I.User) {
 
    // The db is being created when the app first starts
    // But you may reload the page without creating a user (login)
-   // the above if block will never execute again
+   // the above if block will never execute again (update: don't need that anymore)
    // And localStorageDb will not create a table if it doesn't exist when updating
    // I didn't find a way to check if the table exists
    // This is a workaround

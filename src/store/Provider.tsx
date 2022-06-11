@@ -18,12 +18,9 @@ const StoreProvier: React.FC<Props> = ({ children }) => {
    const [state, dispatch] = useReducer(rootReducer, initialState);
 
    return (
-      <StoreContext.Provider value={state}>
-         <DispatchContext.Provider value={dispatch}>
-            {children}
-         </DispatchContext.Provider>
-         ;
-      </StoreContext.Provider>
+      <DispatchContext.Provider value={dispatch}>
+         <StoreContext.Provider value={state}>{children}</StoreContext.Provider>
+      </DispatchContext.Provider>
    );
 };
 

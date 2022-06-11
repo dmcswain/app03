@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = () => {
       if (lastLoginStatus === 'out') return;
 
       const users = getUsers();
-      const lastUser = users[users.length - 1];
+      const lastUser = users![users!.length - 1];
 
       dispatch({ type: 'login', payload: lastUser });
       // eslint-disable-next-line react-hooks/exhaustive-deps

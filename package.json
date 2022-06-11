@@ -6,7 +6,7 @@
       "start": "react-scripts start",
       "build": "react-scripts build",
       "storybook": "start-storybook -p 3001",
-      "build-storybook": "build-storybook -p 3001 -c .storybook -o .dist",
+      "storybook:build": "build-storybook -c .storybook -o .dist",
       "test": "react-scripts test",
       "eject": "react-scripts eject"
    },
