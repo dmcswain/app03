@@ -3,11 +3,11 @@ import { LogoutOutlined } from '@mui/icons-material';
 import {
    AppBar,
    Toolbar,
-   Avatar,
    Typography,
    IconButton,
    styled,
    Button,
+   Box,
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { useStore, useDispatch } from 'store/Provider';
@@ -24,13 +24,23 @@ const TitleBar: React.FC<TitleBarProps> = () => {
    }, [dispatch]);
 
    return (
-      <AppBar>
+      <AppBar color='transparent'>
          <ToolbarStyle>
-            <Link to='/'>
-               <Avatar src='logo192.png' alt='logo'>
-                  App Name
-               </Avatar>
-            </Link>
+            <Box
+               component={Link}
+               to='/'
+               sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textDecoration: 'none',
+               }}
+            >
+               {/* <Avatar src='logo192.png' alt='logo'>
+                  MultiMedia App
+               </Avatar> */}
+               <Typography variant='h2'>MuM</Typography>
+            </Box>
 
             <div className='user'>
                {currentUser && (
