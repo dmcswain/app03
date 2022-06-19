@@ -15,24 +15,41 @@ export function getUsers(): I.User[] | null {
    }
 }
 
-export function getUserByUsername(username: I.User['username']): I.User[] {
-   return db.queryAll('users', {
-      query: { username },
-   });
+export function getUserByUsername(username: I.User['username']): I.User | null {
+   try {
+      return db.queryAll('users', {
+         query: { username },
+      })[0];
+   } catch {
+      return null;
+   }
 }
 
-export function addUser(user: I.User) {
-   const doc = {
+export function addUser(user: I.User, login?: boolean) {
+   const existingUser = getUserByUsername(user.username);
+
+   const prefersDarkMode =
+      (login && existingUser && existingUser.prefersDarkMode) ||
+      user.prefersDarkMode ||
+      false;
+
+   const doc: Partial<I.User> = {
       username: user.username,
       full_name: capitalize(user.username),
       last_login_date: new Date(),
+      prefersDarkMode,
    };
+
+   console.log('login', login);
+   console.log('prefersDarkMode in addUser', prefersDarkMode);
+   console.log('user', user);
+   console.log('doc', doc);
 
    function update() {
       db.insertOrUpdate('users', { username: user.username }, doc);
       db.commit();
 
-      const insertedUser = getUserByUsername(user.username)[0];
+      const insertedUser = getUserByUsername(user.username);
       return insertedUser;
    }
 
@@ -46,7 +63,12 @@ export function addUser(user: I.User) {
    try {
       return update();
    } catch {
-      db.createTable('users', ['username', 'full_name', 'last_login_date']);
+      db.createTable('users', [
+         'username',
+         'full_name',
+         'last_login_date',
+         'prefersDarkMode',
+      ]);
       return update();
    }
 }

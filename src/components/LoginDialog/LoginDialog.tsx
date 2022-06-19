@@ -8,7 +8,7 @@ import {
    TextField,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'store/Provider';
+import { useDispatch, useStore } from 'store/Provider';
 import { addUser } from 'db';
 
 export interface LoginDialogProps {}
@@ -16,6 +16,7 @@ export interface LoginDialogProps {}
 const LoginDialog: React.FC<LoginDialogProps> = () => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const { prefersDarkMode } = useStore();
    const [open, toggleDialog] = useReducer(state => !state, true);
 
    const handleClose = useCallback(() => {
@@ -32,13 +33,19 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
             formData.entries() as IterableIterator<[string, string]>
          );
 
-         const currentUser = addUser(formEntries as unknown as I.User);
+         const currentUser = addUser(
+            {
+               ...formEntries,
+               prefersDarkMode,
+            } as unknown as I.User,
+            true
+         );
 
          dispatch({ type: 'login', payload: currentUser });
          toggleDialog();
          navigate('/', { replace: true });
       },
-      [dispatch, navigate]
+      [dispatch, navigate, prefersDarkMode]
    );
 
    return (

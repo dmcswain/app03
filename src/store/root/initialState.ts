@@ -1,10 +1,14 @@
 export interface IRootState {
    currentUser?: I.User | null;
+   prefersDarkMode: boolean;
    error: null | unknown;
 }
 
-const initialState: IRootState = {
-   error: null,
+const getInitialState = (prefersDarkMode: boolean): IRootState => {
+   return {
+      prefersDarkMode,
+      error: null,
+   };
 };
 
-export default initialState;
+export default getInitialState;

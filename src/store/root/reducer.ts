@@ -9,12 +9,19 @@ function rootReducer(state: I.RootState, action: I.RootAction): I.RootState {
       case 'login': {
          return newState({
             currentUser: action.payload,
+            prefersDarkMode: action.payload?.prefersDarkMode,
          });
       }
 
       case 'logout': {
          return newState({
             currentUser: null,
+         });
+      }
+
+      case 'toggleTheme': {
+         return newState({
+            prefersDarkMode: !state.prefersDarkMode,
          });
       }
 

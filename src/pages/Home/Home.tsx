@@ -1,22 +1,29 @@
 import { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import { getUsers } from 'db';
+import { addUser, getUsers } from 'db';
 import usePersistedState from 'hooks/usePersistedState';
 import { useDispatch, useStore } from 'store/Provider';
 
 export interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-   const { currentUser } = useStore();
+   const { currentUser, prefersDarkMode } = useStore();
    const dispatch = useDispatch();
    const [lastLoginStatus, setLastLoginStatus] = usePersistedState('out');
 
    useEffect(() => {
+      if (!currentUser) return;
+
+      addUser({
+         ...currentUser,
+         prefersDarkMode,
+      });
+   }, [currentUser, prefersDarkMode]);
+
+   useEffect(() => {
       if (currentUser) {
-         //@ts-ignore
          setLastLoginStatus('in');
       } else {
-         //@ts-ignore
          setLastLoginStatus('out');
       }
    }, [currentUser, setLastLoginStatus]);

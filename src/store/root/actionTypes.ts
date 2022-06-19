@@ -1,10 +1,14 @@
 type Login = {
    type: 'login';
-   payload: I.User;
+   payload: I.User | null;
 };
 
 type Logout = {
    type: 'logout';
 };
 
-export type IRootAction = Login | Logout;
+type ToggleTheme = {
+   type: 'toggleTheme';
+};
+
+export type IRootAction = Login | Logout | ToggleTheme;

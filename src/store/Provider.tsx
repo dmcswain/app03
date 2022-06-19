@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
+import { useMediaQuery } from '@mui/material';
 import rootReducer from './root/reducer';
-import initialState from './root/initialState';
+import getInitialState from './root/initialState';
 
 type TDispatchContext = React.Dispatch<I.RootAction>;
 
@@ -15,7 +16,11 @@ interface Props {
 }
 
 const StoreProvier: React.FC<Props> = ({ children }) => {
-   const [state, dispatch] = useReducer(rootReducer, initialState);
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   const [state, dispatch] = useReducer(
+      rootReducer,
+      getInitialState(prefersDarkMode)
+   );
 
    return (
       <DispatchContext.Provider value={dispatch}>
