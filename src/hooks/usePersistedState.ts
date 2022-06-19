@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export default function usePersistedState(initialValue: string) {
+type T = [string, React.Dispatch<React.SetStateAction<string>>];
+
+function usePersistedState(initialValue: string): T {
    const key = 'mmApp_lastLoginStatus';
 
    const [state, setState] = useState(() => {
@@ -13,3 +15,5 @@ export default function usePersistedState(initialValue: string) {
 
    return [state, setState];
 }
+
+export default usePersistedState;

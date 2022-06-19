@@ -1,5 +1,9 @@
 import { useCallback } from 'react';
-import { LogoutOutlined } from '@mui/icons-material';
+import {
+   DarkModeOutlined,
+   LightModeOutlined,
+   LogoutOutlined,
+} from '@mui/icons-material';
 import {
    AppBar,
    Toolbar,
@@ -15,9 +19,13 @@ import { useStore, useDispatch } from 'store/Provider';
 export interface TitleBarProps {}
 
 const TitleBar: React.FC<TitleBarProps> = () => {
-   const { currentUser } = useStore();
+   const { currentUser, prefersDarkMode } = useStore();
    const dispatch = useDispatch();
    const location = useLocation();
+
+   const toggleTheme = useCallback(() => {
+      dispatch({ type: 'toggleTheme' });
+   }, [dispatch]);
 
    const handleLogout = useCallback(() => {
       dispatch({ type: 'logout' });
@@ -26,19 +34,7 @@ const TitleBar: React.FC<TitleBarProps> = () => {
    return (
       <AppBar color='transparent'>
          <ToolbarStyle>
-            <Box
-               component={Link}
-               to='/'
-               sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none',
-               }}
-            >
-               {/* <Avatar src='logo192.png' alt='logo'>
-                  MultiMedia App
-               </Avatar> */}
+            <Box component={Link} to='/' className='logo'>
                <Typography variant='h2'>MuM</Typography>
             </Box>
 
@@ -54,19 +50,24 @@ const TitleBar: React.FC<TitleBarProps> = () => {
                )}
 
                {!currentUser && (
-                  //@ts-ignore
                   <Button
-                     LinkComponent={Link}
+                     component={Link}
                      to='login'
-                     state={{
-                        backgroundLocation: location,
-                     }}
+                     state={{ backgroundLocation: location }}
                      variant='outlined'
                      color='inherit'
                   >
                      Login
                   </Button>
                )}
+
+               <IconButton onClick={toggleTheme}>
+                  {prefersDarkMode ? (
+                     <LightModeOutlined />
+                  ) : (
+                     <DarkModeOutlined />
+                  )}
+               </IconButton>
             </div>
          </ToolbarStyle>
       </AppBar>
@@ -76,10 +77,16 @@ const TitleBar: React.FC<TitleBarProps> = () => {
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
    display: 'flex',
    justifyContent: 'space-between',
+   '.logo': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textDecoration: 'none',
+   },
    '.user': {
       display: 'flex',
       alignItems: 'center',
-      gap: theme.spacing(2),
+      gap: theme.spacing(1),
    },
 }));
 
