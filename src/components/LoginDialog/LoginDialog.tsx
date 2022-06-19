@@ -1,10 +1,10 @@
 import { useCallback, useReducer } from 'react';
 import {
-   Box,
    Button,
    Dialog,
    DialogContent,
    DialogTitle,
+   styled,
    TextField,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -52,19 +52,10 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
       <Dialog maxWidth='sm' fullWidth open={open} onClose={handleClose}>
          <DialogTitle>Login</DialogTitle>
 
-         <DialogContent>
-            <Box
-               component='form'
-               onSubmit={handleSubmit}
-               sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flexShrink: 0,
-                  gap: theme => theme.spacing(1),
-               }}
-            >
+         <DialogContentStyle>
+            <form onSubmit={handleSubmit}>
                <TextField
-                  sx={{ my: 1 }}
+                  className='field'
                   name='username'
                   placeholder='Username'
                   label='Username'
@@ -73,7 +64,7 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
                />
 
                <TextField
-                  sx={{ my: 1 }}
+                  className='field'
                   name='password'
                   type='password'
                   placeholder='Password'
@@ -90,10 +81,21 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
                >
                   Login
                </Button>
-            </Box>
-         </DialogContent>
+            </form>
+         </DialogContentStyle>
       </Dialog>
    );
 };
+
+const DialogContentStyle = styled(DialogContent)(({ theme }) => ({
+   display: 'flex',
+   flexDirection: 'column',
+   flexShrink: 0,
+   gap: theme.spacing(1),
+   '.field': {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+   },
+}));
 
 export default LoginDialog;

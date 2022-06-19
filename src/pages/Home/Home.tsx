@@ -37,8 +37,10 @@ const Home: React.FC<HomeProps> = () => {
       const lastUser = users![users!.length - 1];
 
       dispatch({ type: 'login', payload: lastUser });
+
+      // can't add currentUser here, it should only run once
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [dispatch]);
+   }, []);
 
    return (
       <Box
