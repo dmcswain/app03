@@ -1,2 +1,2 @@
-export { default } from './LoginDialog';
-export * from './LoginDialog';
+export { default } from './TitleBar';
+export * from './TitleBar';
