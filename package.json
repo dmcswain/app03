@@ -5,6 +5,7 @@
    "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
+      "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
       "storybook": "start-storybook -p 3001",
       "storybook:build": "build-storybook -c .storybook -o .dist",
       "test": "react-scripts test",

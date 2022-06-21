@@ -28,7 +28,7 @@ module.exports = {
       'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
       'import/extensions': 'off',
       '@typescript-eslint/no-empty-interface': 'off',
-      'react/prop-types': 'off'
+      'react/prop-types': 'off',
    },
    settings: {
       react: {
