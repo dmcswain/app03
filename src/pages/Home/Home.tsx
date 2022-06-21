@@ -30,12 +30,13 @@ const Home: React.FC<HomeProps> = () => {
 
    useEffect(() => {
       if (currentUser) return;
-      if (!getUsers()) return;
       if (lastLoginStatus === 'out') return;
 
       const users = getUsers();
-      const lastUser = users![users!.length - 1];
 
+      if (!users) return;
+
+      const lastUser = users[users.length - 1];
       dispatch({ type: 'login', payload: lastUser });
 
       // can't add currentUser here, it should only run once

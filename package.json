@@ -8,7 +8,8 @@
       "storybook": "start-storybook -p 3001",
       "storybook:build": "build-storybook -c .storybook -o .dist",
       "test": "react-scripts test",
-      "eject": "react-scripts eject"
+      "eject": "react-scripts eject",
+      "lint": "eslint ./src"
    },
    "dependencies": {
       "@emotion/react": "^11.9.3",
@@ -40,20 +41,20 @@
       "@types/node": "^16.7.13",
       "@types/react": "^18.0.14",
       "@types/react-dom": "^18.0.0",
+      "@typescript-eslint/eslint-plugin": "^5.28.0",
+      "@typescript-eslint/parser": "^5.28.0",
+      "eslint": "^8.18.0",
+      "eslint-config-airbnb": "^19.0.4",
+      "eslint-config-prettier": "^8.5.0",
+      "eslint-import-resolver-typescript": "^2.7.1",
+      "eslint-plugin-import": "^2.26.0",
+      "eslint-plugin-jsx-a11y": "^6.5.1",
       "eslint-plugin-react": "^7.30.0",
+      "eslint-plugin-react-hooks": "^4.6.0",
       "prettier": "^2.7.1"
    },
    "resolutions": {
       "@storybook/react/webpack": "^5"
-   },
-   "eslintConfig": {
-      "extends": [
-         "react-app",
-         "react-app/jest"
-      ],
-      "rules": {
-         "import/no-anonymous-default-export": 0
-      }
    },
    "prettier": {
       "tabWidth": 3,
