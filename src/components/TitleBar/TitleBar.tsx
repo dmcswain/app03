@@ -27,7 +27,6 @@ const TitleBar: React.FC<TitleBarProps> = () => {
          username: lastUser.username,
          prefersDarkMode: lastUser.prefersDarkMode,
       }).then(({ user }) => {
-         console.log('the user', user);
          dispatch({ type: 'login', payload: user });
       });
 

@@ -10,7 +10,7 @@ const Home: React.FC<HomeProps> = () => {
    const { currentUser } = useStore();
    const { data, mutate } = useSWR<{ users: I.User[] }>('/api/users', fetcher);
 
-   console.table(data?.users);
+   data?.users && console.table(data.users);
 
    useEffect(() => {
       // revalidate cache when currentUser change
