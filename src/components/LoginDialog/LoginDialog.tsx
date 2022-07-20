@@ -1,15 +1,9 @@
 import { useCallback, useReducer } from 'react';
-import {
-   Button,
-   Dialog,
-   DialogContent,
-   DialogTitle,
-   styled,
-   TextField,
-} from '@mui/material';
+import { Button, Dialog, DialogTitle, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useStore } from 'store/Provider';
 import { addUserAsync } from 'api';
+import { DialogContentStyle } from './styles';
 
 export interface LoginDialogProps {}
 
@@ -88,16 +82,5 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
       </Dialog>
    );
 };
-
-const DialogContentStyle = styled(DialogContent)(({ theme }) => ({
-   display: 'flex',
-   flexDirection: 'column',
-   flexShrink: 0,
-   gap: theme.spacing(1),
-   '.field': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-   },
-}));
 
 export default LoginDialog;

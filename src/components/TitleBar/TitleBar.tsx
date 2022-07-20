@@ -1,20 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
    DarkModeOutlined,
    LightModeOutlined,
    LogoutOutlined,
 } from '@mui/icons-material';
-import {
-   AppBar,
-   Toolbar,
-   Typography,
-   IconButton,
-   styled,
-   Button,
-   Box,
-} from '@mui/material';
+import { AppBar, Typography, IconButton, Button, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { useStore, useDispatch } from 'store/Provider';
+import { ToolbarStyle } from './styles';
+import usePersistedState from 'hooks/usePersistedState';
+import { getUsersAsync, updateUserAsync } from 'api';
 
 export interface TitleBarProps {}
 
@@ -22,6 +17,48 @@ const TitleBar: React.FC<TitleBarProps> = () => {
    const { currentUser, prefersDarkMode } = useStore();
    const dispatch = useDispatch();
    const location = useLocation();
+   const [lastUser, setLastUser] = usePersistedState(null);
+
+   useEffect(() => {
+      getUsersAsync().then(data => console.table(data?.users));
+   }, [currentUser]);
+
+   useEffect(() => {
+      if (currentUser) return;
+      if (!lastUser) return;
+
+      dispatch({ type: 'login', payload: lastUser });
+
+      // it should only run once
+      // but not when the user is logged in
+      // and when there is no last user saved
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
+   useEffect(() => {
+      if (!currentUser) return;
+
+      updateUserAsync({
+         id: currentUser.id,
+         prefersDarkMode,
+      }).then(({ user }) => {
+         dispatch({ type: 'login', payload: user });
+      });
+
+      // update user with new theme preference
+      // should call when changing theme and user is logged in
+      // can't add currentUser to the deps array
+      // it might cause an infinite loop
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [dispatch, prefersDarkMode]);
+
+   useEffect(() => {
+      if (currentUser) {
+         setLastUser(currentUser);
+      } else {
+         setLastUser(null);
+      }
+   }, [currentUser, setLastUser]);
 
    const toggleTheme = useCallback(() => {
       dispatch({ type: 'toggleTheme' });
@@ -75,21 +112,5 @@ const TitleBar: React.FC<TitleBarProps> = () => {
       </AppBar>
    );
 };
-
-const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   '.logo': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textDecoration: 'none',
-   },
-   '.user': {
-      display: 'flex',
-      alignItems: 'center',
-      gap: theme.spacing(1),
-   },
-}));
 
 export default TitleBar;
