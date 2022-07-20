@@ -8,7 +8,7 @@ import { AppBar, Typography, IconButton, Button, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { useStore, useDispatch } from 'store/Provider';
 import usePersistedState from 'hooks/usePersistedState';
-import { updateUserAsync } from 'api';
+import { addUserAsync, updateUserAsync } from 'api';
 import { ToolbarStyle } from './styles';
 
 export interface TitleBarProps {}
@@ -23,7 +23,13 @@ const TitleBar: React.FC<TitleBarProps> = () => {
       if (currentUser) return;
       if (!lastUser) return;
 
-      dispatch({ type: 'login', payload: lastUser });
+      addUserAsync({
+         username: lastUser.username,
+         prefersDarkMode: lastUser.prefersDarkMode,
+      }).then(({ user }) => {
+         console.log('the user', user);
+         dispatch({ type: 'login', payload: user });
+      });
 
       // it should only run once
       // but not when the user is logged in
