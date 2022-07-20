@@ -41,7 +41,9 @@ const TitleBar: React.FC<TitleBarProps> = () => {
             <div className='user'>
                {currentUser && (
                   <>
-                     <Typography>{currentUser.full_name}</Typography>
+                     <Typography>
+                        <strong>{currentUser.full_name}</strong>
+                     </Typography>
 
                      <IconButton onClick={handleLogout}>
                         <LogoutOutlined color='warning' />

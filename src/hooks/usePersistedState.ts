@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-type T = [string, React.Dispatch<React.SetStateAction<string>>];
+type T = [I.User | null, React.Dispatch<React.SetStateAction<I.User | null>>];
 
-function usePersistedState(initialValue: string): T {
-   const key = 'mmApp_lastLoginStatus';
+function usePersistedState(initialValue: I.User | null): T {
+   const key = 'mmApp_lastLoggedInUser';
 
-   const [state, setState] = useState(() => {
-      return localStorage.getItem(key) || initialValue;
+   const [state, setState] = useState<I.User | null>(() => {
+      return JSON.parse(localStorage.getItem(key) as string) || initialValue;
    });
 
    useEffect(() => {
-      localStorage.setItem(key, state);
+      localStorage.setItem(key, JSON.stringify(state));
    }, [key, state]);
 
    return [state, setState];

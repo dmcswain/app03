@@ -1,5 +1,5 @@
 export default interface User {
-   ID: number; // comes from localStorageDb
+   id: string; // comes from db
    username: string;
    full_name: string;
    last_login_date: Date;

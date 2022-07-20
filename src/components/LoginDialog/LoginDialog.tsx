@@ -9,14 +9,14 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useStore } from 'store/Provider';
-import { addUser } from 'db';
+import { addUserAsync } from 'api';
 
 export interface LoginDialogProps {}
 
 const LoginDialog: React.FC<LoginDialogProps> = () => {
    const navigate = useNavigate();
-   const dispatch = useDispatch();
    const { prefersDarkMode } = useStore();
+   const dispatch = useDispatch();
    const [open, toggleDialog] = useReducer(state => !state, true);
 
    const handleClose = useCallback(() => {
@@ -33,19 +33,21 @@ const LoginDialog: React.FC<LoginDialogProps> = () => {
             formData.entries() as IterableIterator<[string, string]>
          );
 
-         const currentUser = addUser(
-            {
-               ...formEntries,
-               prefersDarkMode,
-            } as unknown as I.User,
-            true
-         );
+         addUserAsync({
+            username: formEntries.username,
+            prefersDarkMode,
+         }).then(({ user }) => {
+            dispatch({ type: 'login', payload: user });
+         });
 
-         dispatch({ type: 'login', payload: currentUser });
          toggleDialog();
          navigate('/', { replace: true });
       },
-      [dispatch, navigate, prefersDarkMode]
+
+      // we don't want to re-call this function every time theme changes
+      // only the first time, when loging in
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [dispatch, navigate, toggleDialog]
    );
 
    return (

@@ -7,9 +7,17 @@ function rootReducer(state: I.RootState, action: I.RootAction): I.RootState {
 
    switch (type) {
       case 'login': {
+         const prefersDarkMode =
+            typeof action.payload?.prefersDarkMode !== 'undefined'
+               ? action.payload?.prefersDarkMode
+               : state.prefersDarkMode;
+
          return newState({
-            currentUser: action.payload,
-            prefersDarkMode: action.payload?.prefersDarkMode,
+            currentUser: {
+               ...(action.payload as I.User),
+               prefersDarkMode,
+            },
+            prefersDarkMode,
          });
       }
 
