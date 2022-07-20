@@ -7,9 +7,9 @@ import {
 import { AppBar, Typography, IconButton, Button, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { useStore, useDispatch } from 'store/Provider';
-import { ToolbarStyle } from './styles';
 import usePersistedState from 'hooks/usePersistedState';
-import { getUsersAsync, updateUserAsync } from 'api';
+import { updateUserAsync } from 'api';
+import { ToolbarStyle } from './styles';
 
 export interface TitleBarProps {}
 
@@ -18,10 +18,6 @@ const TitleBar: React.FC<TitleBarProps> = () => {
    const dispatch = useDispatch();
    const location = useLocation();
    const [lastUser, setLastUser] = usePersistedState(null);
-
-   useEffect(() => {
-      getUsersAsync().then(data => console.table(data?.users));
-   }, [currentUser]);
 
    useEffect(() => {
       if (currentUser) return;

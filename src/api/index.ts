@@ -1,3 +1,5 @@
+import fetcher from './fetcher';
+
 interface NewUserArgs
    extends Omit<I.User, 'id' | 'full_name' | 'last_login_date'> {}
 
@@ -21,27 +23,4 @@ export async function updateUserAsync(user: UserArgs): Promise<UserResponse> {
       method: 'PATCH',
       body: JSON.stringify(user),
    }).catch(console.error);
-}
-
-interface UsersResponse {
-   users: Array<I.User>;
-}
-
-export async function getUsersAsync(): Promise<UsersResponse> {
-   return await fetcher('/api/users').catch(console.error);
-}
-
-async function fetcher(url: RequestInfo | URL, options?: RequestInit) {
-   return fetch(url, {
-      headers: {
-         'Content-Type': 'application/json',
-      },
-      ...options,
-   }).then(res => {
-      if (res.headers.get('content-type') !== 'application/json') {
-         throw new Error('Unexpected content-type');
-      }
-
-      return res.json();
-   });
 }
