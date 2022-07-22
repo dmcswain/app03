@@ -14,6 +14,6 @@ describe('Layout', () => {
       const { asFragment } = render(<Layout {...props} />, { wrapper });
 
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByAltText('logo')).toBeTruthy();
+      expect(screen.getByText('MuM')).toBeTruthy();
    });
 });
