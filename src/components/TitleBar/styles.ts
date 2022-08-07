@@ -1,4 +1,4 @@
-import { styled, Toolbar } from "@mui/material";
+import { styled, Toolbar } from '@mui/material';
 
 export const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
    display: 'flex',
